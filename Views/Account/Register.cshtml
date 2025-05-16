@@ -1,0 +1,155 @@
+﻿@model Do_An.Models.User
+
+@{
+    ViewBag.Title = "Register Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        overflow-x: hidden;
+    }
+
+    .row {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+    }
+
+    .card {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .card-header {
+        background-color: #007BFF;
+        color: white;
+        font-weight: bold;
+        text-align: center;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .form-control {
+        height: 45px;
+        font-size: 16px;
+        max-width: 100%;
+    }
+
+    .btn-primary {
+        width: 50%;
+        padding: 10px;
+        font-size: 16px;
+    }
+
+    .extra-links {
+        margin-top: 15px;
+        text-align: center;
+    }
+
+        .extra-links a {
+            margin: 0 10px;
+            color: #007bff;
+            text-decoration: none;
+        }
+
+            .extra-links a:hover {
+                text-decoration: underline;
+            }
+
+    .validation-message:empty {
+        display: none;
+    }
+
+    .validation-message:not(:empty) {
+        color: red;
+        background-color: #FFBABA;
+        padding: 5px;
+        border-radius: 4px;
+        font-weight: 600;
+        margin-top: 5px;
+        display: inline-block;
+        font-size: 14px;
+    }
+</style>
+
+<div class="row justify-content-md-center">
+    <div class="col-md-5">
+        @using (Html.BeginForm("Register", "Account", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="card">
+                <div class="card-header">
+                    Register
+                </div>
+
+                <div class="card-body">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                    <div class="form-group">
+                        <div class="input-group">
+                            <span class="input-group-text">
+                                <i class="fa-solid fa-user"></i>
+                            </span>
+                            @Html.TextBoxFor(m => m.FullName, "", new { @class = "form-control", @placeholder = "Full name" })
+                        </div>
+                        <!-- Validation -->
+                        @Html.ValidationMessageFor(m => m.FullName, "", new { @class = "text-danger validation-message" })
+                    </div>
+
+                    <div class="form-group">
+                        <div class="input-group">
+                            <span class="input-group-text">
+                                <i class="fa-solid fa-envelope"></i>
+                            </span>
+                            @Html.TextBoxFor(m => m.Email, "", new { @class = "form-control", placeholder = "Email", autocomplete = "off" })
+                        </div>
+                        <!-- Validation -->
+                        @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger validation-message" })
+                    </div>
+
+                    <div class="form-group">
+                        <div class="input-group">
+                            <span class="input-group-text">
+                                <i class="fa-solid fa-lock"></i>
+                            </span>
+                            @Html.PasswordFor(m => m.C_Password, new { @class = "form-control", placeholder = "Password" })
+                        </div>
+                        <!-- Validation -->
+                        @Html.ValidationMessageFor(m => m.C_Password, "", new { @class = "text-danger validation-message" })
+                    </div>
+
+                    <div class="form-group">
+                        <div class="input-group">
+                            <span class="input-group-text">
+                                <i class="fa-solid fa-lock"></i>
+                            </span>
+                            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control", placeholder = "Confirm Password" })
+                        </div>
+
+                        <!-- Validation -->
+                        @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-danger validation-message" })
+                    </div>
+
+                    @if (ViewBag.Error != null)
+                    {
+                        <span class="text-danger validation-message">@ViewBag.Error</span>
+                    }
+
+                    <div class="form-group">
+                        <input type="submit" name="submit" class="btn btn-danger" value="Register" />
+                    </div>
+
+                    <div class="extra-links">
+                        <a href="@Url.Action("Login", "Account")">Đã có tài khoảng? Đăng nhập</a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+

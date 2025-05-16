@@ -1,0 +1,195 @@
+﻿@model Do_An.Models.User
+
+@{
+    ViewBag.Title = "Login Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        overflow-x: hidden;
+    }
+
+    .row {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+    }
+
+    .card {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .card-header {
+        background-color: #007BFF;
+        color: white;
+        font-weight: bold;
+        text-align: center;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .form-control {
+        height: 45px;
+        font-size: 16px;
+        max-width: 100%;
+    }
+
+    .btn-primary {
+        width: 50%;
+        padding: 10px;
+        font-size: 16px;
+    }
+
+    .extra-links {
+        margin-top: 15px;
+        text-align: center;
+    }
+
+        .extra-links a {
+            margin: 0 10px;
+            color: #007bff;
+            text-decoration: none;
+        }
+
+            .extra-links a:hover {
+                text-decoration: underline;
+            }
+
+    .toggle-password {
+        position: absolute;
+        top: 50%;
+        right: 15px;
+        transform: translateY(-50%);
+        cursor: pointer;
+        color: #888;
+        font-size: 1rem;
+        padding: 5px;
+        transition: color 0.2s ease, transform 0.2s ease;
+        z-index: 10;
+    }
+
+        .toggle-password:hover {
+            color: #000;
+            transform: translateY(-50%) scale(1.1);
+        }
+
+    .validation-message:empty {
+        display: none;
+    }
+
+    .validation-message:not(:empty) {
+        color: red;
+        background-color: #f8d7da;
+        padding: 5px;
+        border-radius: 4px;
+        font-weight: 600;
+        margin-top: 5px;
+        display: inline-block;
+    }
+
+    .error-message:empty {
+        display: none;
+    }
+
+    .error-message:not(:empty) {
+        width: 100%;
+        padding: 20px;
+        font-size: 18px;
+        background-color: #FFBABA;
+        font-weight: 500;
+        margin-bottom: 20px;
+        border-radius: 5px;
+    }
+</style>
+
+<div class="row justify-content-md-center">
+    <div class="col-md-4">
+        @using (Html.BeginForm("Login", "Account", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="card">
+                <div class="card-header">
+                    Login
+                </div>
+
+                <div class="card-body">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                    <div class="form-group">
+                        <div class="input-group">
+                            <span class="input-group-text">
+                                <i class="fa-solid fa-envelope"></i>
+                            </span>
+                            @Html.TextBoxFor(m => m.Email, "", new { @class = "form-control", placeholder = "Email", autocomplete = "off" })
+                        </div>
+
+                        <!-- Validation -->
+                        @Html.ValidationMessageFor(m => m.Email, "",
+                            new
+                                 {
+                                @class = "text-danger validation-message",
+                            })
+                    </div>
+
+                    <div class="form-group">
+                        <div class="input-group">
+                            <span class="input-group-text">
+                                <i class="fa-solid fa-lock"></i>
+                            </span>
+                            @Html.PasswordFor(m => m.C_Password, new { @class = "form-control", placeholder = "Password", id = "password", autocomplete = "off" })
+                            <span onclick="togglePassword()" class="toggle-password input-group-text">
+                                <i class="fa-solid fa-eye-slash" id="eye-icon"></i>
+                            </span>
+                        </div>
+
+                        <!-- Validation -->
+                        @Html.ValidationMessageFor(m => m.C_Password, "",
+                            new
+                                 {
+                                @class = "text-danger validation-message",
+                            })
+                    </div>
+
+                    @if (ViewBag.LoginFail != null)
+                    {
+                        <div class="text-danger error-message">
+                            @Html.Raw(ViewBag.LoginFail)
+                        </div>
+                    }
+
+                    <div class="form-group">
+                        <input type="submit" name="submit" class="btn btn-danger" value="Login" />
+                    </div>
+
+                    <div class="extra-links text-center mt-3">
+                        <a href="@Url.Action("Register", "Account")">Chưa có tài khoản? Đăng ký</a> |
+                        <a href="@Url.Action("ResetPassword", "Account")">Quên mật khẩu?</a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<script>
+    function togglePassword() {
+        var passwordInput = document.getElementById("password");
+        var icon = document.getElementById("eye-icon");
+
+        if (passwordInput.type === "password") {
+            passwordInput.type = "text";
+            icon.classList.remove("fa-eye-slash");
+            icon.classList.add("fa-eye");
+        } else {
+            passwordInput.type = "password";
+            icon.classList.remove("fa-eye");
+            icon.classList.add("fa-eye-slash");
+        }
+    }
+</script>
