@@ -53,12 +53,12 @@ dotnet run
 
 -----
 
-## 📸 **Giao diện minh họa**
+## 📸 Giao diện minh họa
 Thêm ảnh giao diện vào thư mục images/ và sử dụng đường dẫn tương đối hoặc link ảnh trực tuyến
 
 -----
 
-## 📬 **Góp ý & Đóng góp**
+## 📬 Góp ý & Đóng góp
 Bạn có thể:
 - Tạo Issue
 - Gửi Pull Request
@@ -66,12 +66,12 @@ Bạn có thể:
 
 -----
 
-## 👨‍💻 **Tác giả**
+## 👨‍💻 Tác giả
 - Nhóm trưởng: Nguyễn Hồng Thanh Thiện - MSSV: 2001216176 - Công việc:
 - Thành viên 1: Ngô Gia Bảo - Công việc:
 - Thành viên 2: Nguyễn Tiến Phước - Công việc:
 
 -----
 
-## 📄 **License**
+## 📄 License
 Dự án được phát hành theo giấy phép MIT License. Xem chi tiết trong file LICENSE.
