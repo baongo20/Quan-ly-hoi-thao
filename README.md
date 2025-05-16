@@ -49,7 +49,8 @@ git clone https://github.com/tenban/ql-hoithao-huit.git
 cd ql-hoithao-huit
 dotnet restore
 dotnet ef database update
-dotnet run```
+dotnet run
+```
 
 -----
 
