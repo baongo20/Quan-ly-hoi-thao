@@ -1,0 +1,143 @@
+﻿@model Do_An.ViewModels.CreateConferenceModel
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Areas/Host/Views/Shared/_LayoutHost.cshtml";
+}
+
+@section Styles {
+    <style>
+        footer p {
+            text-align: center;
+            margin: 0;
+        }
+    </style>
+}
+
+<style>
+</style>
+
+@using (Html.BeginForm("Create", "Conference", FormMethod.Post, new { @class = "container mt-4" }))
+{
+    <div class="card mb-4">
+        <div class="card-header bg-light">
+            <strong>Title and acronym.</strong>
+            <p>Enter the conference's title.</p>
+        </div>
+        <div class="card-body">
+            <div class="form-group mb-3">
+                @Html.LabelFor(m => m.Title, "Conference title:", new { @class = "form-label fw-bold" })
+                <span class="text-danger">*</span>
+                @Html.TextBoxFor(m => m.Title, new { @class = "form-control" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Acronym, "Acronym:", new { @class = "form-label fw-bold" })
+                <span class="text-danger">*</span>
+                @Html.TextBoxFor(m => m.Acronym, new { @class = "form-control" })
+            </div>
+        </div>
+    </div>
+
+    <div class="card mb-4">
+        <div class="card-header bg-light">
+            <strong>Conference information.</strong>
+        </div>
+        <div class="card-body">
+
+        </div>
+    </div>
+
+    <div class="card mb-4">
+        <div class="card-header bg-light">
+            <strong>Dates</strong>
+            <p>Enter the conference dates. The dates must be in the format yyyy-mm-dd.</p>
+        </div>
+        <div class="card-body">
+            <div class="form-group mb-3">
+                @Html.LabelFor(m => m.StartDate, "First day:", new { @class = "form-label" })
+                <span class="text-danger">*</span>
+                @Html.TextBoxFor(m => m.StartDate, "", new { @type = "date", @class = "form-control" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.EndDate, "Last day:", new { @class = "form-label" })
+                <span class="text-danger">*</span>
+                @Html.TextBoxFor(m => m.EndDate, "", new { @type = "date", @class = "form-control" })
+            </div>
+        </div>
+    </div>
+
+    <div class="card mb-4">
+        <div class="card-header bg-light">
+            <strong>Research areas.</strong>
+            <p>Select the main research area to which the conference belongs. If your conference fits into more than one area, choose the secondary area.</p>
+        </div>
+        <div class="card-body">
+            <div class="form-group">
+                <label for="PrimaryArea">Primary area: <span class="text-danger">*</span></label>
+                @Html.DropDownListFor(model => model.PrimaryAreaID,
+                    new List<SelectListItem>
+                    {
+                        new SelectListItem { Text = "Artificial Intelligence (AI)", Value = "1" },
+                        new SelectListItem { Text = "Machine Learning (ML)", Value = "2" },
+                        new SelectListItem { Text = "Deep Learning", Value = "3" },
+                        new SelectListItem { Text = "Data Science", Value = "4" },
+                        new SelectListItem { Text = "Big Data Analytics", Value = "5" },
+                        new SelectListItem { Text = "Computer Vision", Value = "6" },
+                        new SelectListItem { Text = "Natural Language Processing (NLP)", Value = "7" },
+                        new SelectListItem { Text = "Robotics and Automation", Value = "8" },
+                        new SelectListItem { Text = "Software Engineering", Value = "9" },
+                        new SelectListItem { Text = "Information Systems", Value = "10" }
+                    },
+                    "-- Select primary area --",
+                    new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.PrimaryAreaID, "", new { @class = "text-danger" })
+
+                <br />
+
+                <label for="SecondaryArea">Secondary area:</label>
+                @Html.DropDownListFor(model => model.SecondaryAreaID,
+                    new List<SelectListItem>
+                    {
+                        new SelectListItem { Text = "Artificial Intelligence (AI)", Value = "1" },
+                        new SelectListItem { Text = "Machine Learning (ML)", Value = "2" },
+                        new SelectListItem { Text = "Deep Learning", Value = "3" },
+                        new SelectListItem { Text = "Data Science", Value = "4" },
+                        new SelectListItem { Text = "Big Data Analytics", Value = "5" },
+                        new SelectListItem { Text = "Computer Vision", Value = "6" },
+                        new SelectListItem { Text = "Natural Language Processing (NLP)", Value = "7" },
+                        new SelectListItem { Text = "Robotics and Automation", Value = "8" },
+                        new SelectListItem { Text = "Software Engineering", Value = "9" },
+                        new SelectListItem { Text = "Information Systems", Value = "10" }
+                    },
+                    "-- Select secondary area (optional) --",
+                    new { @class = "form-control" })
+            </div>
+        </div>
+    </div>
+
+    <div class="card mb-4">
+        <div class="card-header bg-light">
+            <strong>Organizer.</strong>
+            <p>Enter information about the organizer.</p>
+        </div>
+        <div class="card-body">
+            <div class="form-group">
+                <label for="Organizer">Organizer: <span class="text-danger">*</span></label>
+                @Html.TextBoxFor(m => m.Organizer, new { @class = "form-control" })
+            </div>
+        </div>
+    </div>
+
+    <div class="card mb-4">
+        <div class="card-header bg-light">
+            <strong>Other information.</strong>
+        </div>
+        <div class="card-body">
+
+        </div>
+    </div>
+
+    <div class="text-end mb-4">
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+}

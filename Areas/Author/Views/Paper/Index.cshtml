@@ -1,0 +1,107 @@
+﻿@model IEnumerable<Do_An.Models.Paper>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Author/Views/Shared/_LayoutAuthor.cshtml";
+}
+
+@section Styles {
+    <style>
+        footer p {
+            text-align: center;
+            margin: 0;
+        }
+    </style>
+}
+
+<style>
+    p a {
+        text-decoration: none;
+        background: #990000;
+        color: #fff;
+        cursor: pointer;
+        font-weight: bold;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 11pt;
+        border-radius: 4pt;
+        min-width: 120pt;
+        height: 20pt;
+        padding: 2pt 10pt 1pt 10pt;
+    }
+
+    p a:hover {
+        color: #fff;
+    }
+
+    .summary {
+        border-left: 0px #800 solid;
+        padding: 20px 25px 15px 42px;
+        color: #333;
+        font-size: 13px;
+        line-height: 1.25;
+        width: 100%;
+        font-family: Verdana, sans-serif;
+        background: #f6f4f2;
+        background-position: bottom left;
+    }
+</style>
+
+@*<div class="summary">
+    <div class="pagetitle">My Papers</div>
+    <p>
+        EasyChair Preprints is a preprint service allowing our users to <b>publish preprints</b>.
+        Preprints published by EasyChair will be indexed<br /> by major indexingservices, such as Google Scholar.
+    </p>
+    <p>
+        Note that you have <b>unpublished preprints</b>. Click on "Access" column to update or publish them.
+    </p>
+    <p></p>
+</div>*@
+
+<p>
+    @Html.ActionLink("Add New Paper", "Create")
+</p>
+
+<p>Your existing preprints are shown below.</p>
+
+@{
+    var user = Session["User"] as Do_An.Models.User;
+    int index = 1;
+}
+
+@if (Model.Count() > 0)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Authors</th>
+                <th scope="col">Title</th>
+                <th scope="col">When published</th>
+                <th scope="col">Access</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <th scope="row">@index++</th>
+                    <td>
+                        -
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Title)
+                    </td>
+                    <td>
+                        -
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.PaperID }) |
+                        @Html.ActionLink("Details", "Details", new { id = item.PaperID }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.PaperID })
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

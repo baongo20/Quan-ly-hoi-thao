@@ -1,0 +1,35 @@
+﻿@model IEnumerable<Do_An.Areas.Admin.Data.BaiBao>
+
+
+<table id="papersTable" class="table table-bordered table-striped" style="width: 100%">
+    <thead>
+        <tr>
+            <th>Tiêu đề</th>
+            <th>Lĩnh vực</th>
+            <th>Tóm tắt</th>
+            <th>Từ khóa</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null && Model.Any())
+        {
+            foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @item.TieuDe
+                    </td>
+                    <td>
+                        @item.TenLinhVuc
+                    </td>
+                    <td>
+                        @item.TomTat
+                    </td>
+                    <td>
+                        @item.TuKhoa
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>

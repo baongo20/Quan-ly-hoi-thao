@@ -8,6 +8,14 @@
         <EntityTypeShape EntityType="DB_QLHTModel.Role" Width="1.5" PointX="0.75" PointY="1.25" IsExpanded="true" />
         <EntityTypeShape EntityType="DB_QLHTModel.User" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
         <AssociationConnector Association="DB_QLHTModel.FK__Users__RoleID__4D94879B" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="DB_QLHTModel.Conference" Width="1.5" PointX="8.375" PointY="1.625" />
+        <EntityTypeShape EntityType="DB_QLHTModel.ResearchArea" Width="1.5" PointX="6.125" PointY="2.625" />
+        <AssociationConnector Association="DB_QLHTModel.FK__Conferenc__Prima__06CD04F7" />
+        <AssociationConnector Association="DB_QLHTModel.FK__Conferenc__Secon__07C12930" />
+        <EntityTypeShape EntityType="DB_QLHTModel.Paper" Width="1.5" PointX="10.625" PointY="1.875" />
+        <AssociationConnector Association="DB_QLHTModel.FK__Papers__Conferen__17F790F9" />
+        <AssociationConnector Association="DB_QLHTModel.FK__Papers__PrimaryA__18EBB532" />
+        <AssociationConnector Association="DB_QLHTModel.FK__Papers__Secondar__19DFD96B" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

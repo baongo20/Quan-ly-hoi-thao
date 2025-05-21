@@ -27,5 +27,8 @@ namespace Do_An.Models
     
         public DbSet<Role> Roles { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<Conference> Conferences { get; set; }
+        public DbSet<ResearchArea> ResearchAreas { get; set; }
+        public DbSet<Paper> Papers { get; set; }
     }
 }

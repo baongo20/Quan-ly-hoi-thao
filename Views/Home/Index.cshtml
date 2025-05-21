@@ -1,27 +1,10 @@
-﻿@using Do_An.Models
-
-@{
+﻿@{
     ViewBag.Title = "Home";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="row justify-content-md-start">
-    <div class="col-md-4">
-        <div class="card">
-            <div class="card-header">
-                Wellcome
-            </div>
-            <div class="card-body">
-                @{
-                    var user = Session["User"] as User;
-                    if (user != null)
-                    {
-                        <p>Name: @user.FullName.ToString()</p>
-                        <p>Email: @user.Email.ToString()</p>
-                        <a href="@Url.Action("Logout", "Account")" class="btn btn-warning">Logout</a>
-                    }
-                }
-            </div>
-        </div>
-
-    </div>
+<div class="text-center mt-5">
+    <h1>A Bootstrap 5 Starter Template</h1>
+    <p class="lead">A complete project boilerplate built with Bootstrap</p>
+    <p>Bootstrap v5.2.3</p>
 </div>

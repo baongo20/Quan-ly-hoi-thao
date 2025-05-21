@@ -1,0 +1,26 @@
+﻿@model IEnumerable<Do_An.Areas.Admin.Data.NguoiDung>
+
+<table id="authorsTable" class="table table-bordered table-striped" style="width: 100%">
+    <thead>
+        <tr>
+            <th>Họ và tên</th>
+            <th>Username</th>
+            <th>Email</th>
+            <th>Học hàm học vị</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null && Model.Any())
+        {
+            foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.HoTen</td>
+                    <td>@item.Username</td>
+                    <td>@item.Email</td>
+                    <td>@item.TenHHHV</td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>

@@ -14,7 +14,7 @@ namespace Do_An.Controllers
 {
     public class AccountController : Controller
     {
-        private readonly DB_QLHTEntities db = new DB_QLHTEntities();
+        private DB_QLHTEntities db = new DB_QLHTEntities();
         // GET: /Account/Login
         [HttpGet]
         public ActionResult Login()
@@ -24,25 +24,49 @@ namespace Do_An.Controllers
         // POST: /Account/Login
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Login(User _user)
+        public ActionResult Login(LoginModel model)
         {
-            var email = _user.Email;
-            var password = _user.C_Password;
-
-            var f_password = PasswordUtil.GetMD5(password);
-            var data = db.Users.SingleOrDefault(s => s.Email.Equals(email) && s.C_Password.Equals(f_password));
-
-            if (data != null)
+            // Check if any field is empty
+            if (string.IsNullOrEmpty(model.Email) || string.IsNullOrEmpty(model.Password))
             {
-                // Add session
-                Session["User"] = data;
-                return RedirectToAction("Index", "Home");
+                return View(model);
             }
-            else
+
+            if (ModelState.IsValid)
             {
-                ViewBag.LoginFail = "Tài khoản hoặc mật khẩu không đúng!";
-                return View();
+                var email = model.Email.Trim();
+                var password = model.Password.Trim();
+
+                var f_password = PasswordUtil.GetMD5(password);
+                var user = db.Users.SingleOrDefault(s => s.Email.Equals(email) && s.C_Password.Equals(f_password));
+
+                if (user != null)
+                {
+                    // Add Session
+                    Session["User"] = user;
+
+                    if (user.RoleID == 1)
+                    {
+                        return RedirectToAction("Index", "Home", new { area = "Admin" });
+                    } else if (user.RoleID == 2)
+                    {
+                        return RedirectToAction("Index", "Home", new { area = "Host" });
+                    } else if (user.RoleID == 4)
+                    {
+                        return RedirectToAction("Index", "Home", new { area = "Author" });
+                    } else
+                    {
+                        return RedirectToAction("Index", "Home", new { area = "" });
+                    }
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Tài khoản hoặc mật khẩu không đúng!");
+                    return View(model);
+                }
             }
+
+            return View(model);
         }
         // GET: /Account/Register
         [HttpGet]
@@ -53,35 +77,46 @@ namespace Do_An.Controllers
         // POST: /Account/Register
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Register(User _user)
+        public ActionResult Register(RegisterModel model)
         {
+            if (string.IsNullOrEmpty(model.FullName) || string.IsNullOrEmpty(model.Email) || string.IsNullOrEmpty(model.Password) ||
+                string.IsNullOrEmpty(model.ConfirmPassword))
+            {
+                return View(model);
+            }
+
             if (ModelState.IsValid)
             {
-                var check = db.Users.FirstOrDefault(s => s.Email == _user.Email.Trim());
+                var check = db.Users.FirstOrDefault(s => s.Email == model.Email.Trim());
                 if (check == null)
                 {
                     DateTime dt = DateTime.Now;
-                    _user.C_Password = PasswordUtil.GetMD5(_user.C_Password);
-                    _user.RoleID = 4;
-                    _user.CreatedAt = dt;
-                    db.Configuration.ValidateOnSaveEnabled = false;
-                    db.Users.Add(_user);
+                    var user = new User
+                    {
+                        FullName = model.FullName,
+                        Email = model.Email,
+                        C_Password = PasswordUtil.GetMD5(model.Password),
+                        RoleID = 4,
+                        CreatedAt = dt
+                    };
+                    //db.Configuration.ValidateOnSaveEnabled = false;
+                    db.Users.Add(user);
                     db.SaveChanges();
                     return RedirectToAction("Login", "Account"); // Chuyển đến trang đăng nhập sau khi đăng ký thành công
                 }
                 else
                 {
-                    ViewBag.Error = "Email đã tồn tại!";
-                    return View();
+                    ModelState.AddModelError("", "Email đã tồn tại!");
+                    return View(model);
                 }
             }
-            return View();
+            return View(model);
         }
-        // Logout
+        // POST: /Account/Logout
         public ActionResult Logout()
         {
             Session.Clear(); // Remove session
-            return RedirectToAction("Login", "Account");
+            return RedirectToAction("Index", "Home");
         }
         // GET: /Account/ResetPassword
         [HttpGet]
@@ -96,7 +131,7 @@ namespace Do_An.Controllers
         {
             if (string.IsNullOrEmpty(model.Email) || string.IsNullOrEmpty(model.Password) || string.IsNullOrEmpty(model.ConfirmPassword))
             {
-                return View();
+                return View(model);
             }
 
             if (ModelState.IsValid)

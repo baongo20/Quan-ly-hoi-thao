@@ -19,7 +19,7 @@ namespace Do_An.Utils
             {
                 byte[] inputBytes = Encoding.ASCII.GetBytes(str);
                 byte[] hashBytes = md5.ComputeHash(inputBytes);
-                return BitConverter.ToString(hashBytes).ToLowerInvariant();
+                return BitConverter.ToString(hashBytes).Replace("-", "").ToLowerInvariant();
             }
         }
     }

@@ -1,0 +1,193 @@
+﻿@section Styles {
+    <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
+    <link href="@Url.Content("~/Areas/Admin/Content/css/styles.css")" rel="stylesheet" />
+    <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+}
+
+<div class="container-fluid px-4">
+    <h1 class="mt-4">Dashboard</h1>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item active">Dashboard</li>
+    </ol>
+
+    <div class="row">
+        <div class="col-xl-3 col-md-6">
+            <div class="card bg-primary text-white mb-4">
+                <div class="card-body">Primary Card</div>
+                <div class="card-footer d-flex align-items-center justify-content-between">
+                    <a class="small text-white stretched-link" href="#">View Details</a>
+                    <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6">
+            <div class="card bg-warning text-white mb-4">
+                <div class="card-body">Warning Card</div>
+                <div class="card-footer d-flex align-items-center justify-content-between">
+                    <a class="small text-white stretched-link" href="#">View Details</a>
+                    <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6">
+            <div class="card bg-success text-white mb-4">
+                <div class="card-body">Success Card</div>
+                <div class="card-footer d-flex align-items-center justify-content-between">
+                    <a class="small text-white stretched-link" href="#">View Details</a>
+                    <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6">
+            <div class="card bg-danger text-white mb-4">
+                <div class="card-body">Danger Card</div>
+                <div class="card-footer d-flex align-items-center justify-content-between">
+                    <a class="small text-white stretched-link" href="#">View Details</a>
+                    <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xl-6">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <i class="fas fa-chart-area me-1"></i>
+                    Area Chart Example
+                </div>
+                <div class="card-body"><canvas id="myAreaChart" width="100%" height="40"></canvas></div>
+            </div>
+        </div>
+
+        <div class="col-xl-6">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <i class="fas fa-chart-bar me-1"></i>
+                    Bar Chart Example
+                </div>
+                <div class="card-body"><canvas id="myBarChart" width="100%" height="40"></canvas></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card mb-4">
+        <div class="card-header">
+            <i class="fas fa-table me-1"></i>
+            DataTable Example
+        </div>
+        <div class="card-body">
+            <div id="paper-container"></div>
+        </div>
+    </div>
+
+    <div class="card mb-4">
+        <div class="card-header">
+            <i class="fas fa-table me-1"></i>
+            DataTable Example
+        </div>
+        <div class="card-body">
+            <div id="conference-container"></div>
+        </div>
+    </div>
+
+    <div class="card mb-4">
+        <div class="card-header">
+            <i class="fas fa-table me-1"></i>
+            DataTable Example
+        </div>
+        <div class="card-body">
+            <div id="author-container"></div>
+        </div>
+    </div>
+
+</div>
+
+@section Scripts {
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+    <script src="@Url.Content("~/Areas/Admin/Content/js/scripts.js")"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
+    <script src="@Url.Content("~/Areas/Admin/Content/assets/demo/chart-area-demo.js")"></script>
+    <script src="@Url.Content("~/Areas/Admin/Content/assets/demo/chart-bar-demo.js")"></script>
+    <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
+
+
+
+    <!-- Khởi tạo -->
+    <script>
+        $(document).ready(function () {
+            $("#paper-container").load('@Url.Action("LoadPapers", "Home", new { area = "Admin" })', function () {
+                const table = document.getElementById("papersTable");
+                if (table) {
+                    new simpleDatatables.DataTable(table, {
+                        paging: true,
+                        perPage: 5,
+                        perPageSelect: [5, 10, 15, 20, 25],
+                        searchable: true,
+                        sortable: true,
+                        labels: {
+                            placeholder: "Search...",
+                            perPage: "entries per page",
+                            noRows: "No available datas",
+                            info: "Showing {start} to {end} of {rows} entries",
+                        },
+                        layout: {
+                            top: "{search}{select}",
+                            bottom: "{info}{pager}"
+                        }
+                    });
+                }
+            });
+
+            $("#conference-container").load('@Url.Action("LoadConferences", "Home", new { area = "Admin" })', function () {
+                const _table = document.getElementById("conferencesTable");
+                if (_table) {
+                    new simpleDatatables.DataTable(_table, {
+                        perPage: 5,
+                        perPageSelect: [5, 10, 15, 20, 25],
+                        searchable: true,
+                        sortable: true,
+                        labels: {
+                            placeholder: "Search...",
+                            perPage: "entries per page",
+                            noRows: "No available datas",
+                            info: "Showing {start} to {end} of {rows} entries",
+                        },
+                        layout: {
+                            top: "{search}{select}",
+                            bottom: "{info}{pager}"
+                        }
+                    });
+                }
+            });
+
+            $("#author-container").load('@Url.Action("LoadAuthors", "Home", new { area = "Admin" })', function () {
+                const _table = document.getElementById("authorsTable");
+                if (_table) {
+                    new simpleDatatables.DataTable(_table, {
+                        perPage: 5,
+                        perPageSelect: [5, 10, 15, 20, 25],
+                        searchable: true,
+                        sortable: true,
+                        labels: {
+                            placeholder: "Search...",
+                            perPage: "entries per page",
+                            noRows: "No available datas",
+                            info: "Showing {start} to {end} of {rows} entries",
+                        },
+                        layout: {
+                            top: "{search}{select}",
+                            bottom: "{info}{pager}"
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+}

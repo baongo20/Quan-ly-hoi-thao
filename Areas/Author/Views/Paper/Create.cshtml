@@ -1,0 +1,465 @@
+﻿@model Do_An.Models.Paper
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Areas/Author/Views/Shared/_LayoutAuthor.cshtml";
+}
+
+<style type="text/css">
+    .formtable {
+        background-color: #EFF2F6;
+        padding: 15pt;
+        border: solid #aaa 1px;
+        margin-top: 30pt;
+        margin-bottom: 30pt;
+        font-size: 13px;
+        max-width: 800pt;
+        box-shadow: 4px 4px 3px rgba(0,0,0,0.15);
+    }
+
+    table {
+        display: table;
+        border-collapse: separate;
+        box-sizing: border-box;
+        text-indent: initial;
+        unicode-bidi: isolate;
+        border-spacing: 2px;
+    }
+
+    .formtable td {
+        padding: 5pt 3pt 5pt 3pt;
+    }
+
+    td {
+        display: table-cell;
+        vertical-align: inherit;
+        unicode-bidi: isolate;
+    }
+
+    tr {
+        display: table-row;
+        vertical-align: inherit;
+        unicode-bidi: isolate;
+        border-color: inherit;
+    }
+
+    .formtable .right {
+        white-space: nowrap;
+    }
+
+    .redstar {
+        color: red;
+        padding-left: 5px;
+    }
+
+    p {
+        margin: 0px 0pt 12px 10pt;
+        max-width: 700pt;
+        line-height: 1.4;
+        display: block;
+        unicode-bidi: isolate;
+    }
+
+    input[type="submit"] {
+        background-color: #990000;
+        border: 1px solid #999;
+        height: 20pt;
+        min-width: 120pt;
+        padding: 2pt 10pt 1pt 10pt;
+        margin: 10pt 0pt 8pt 0pt;
+        border-radius: 4pt;
+        font-size: 11pt;
+        font-family: Arial, Helvetica, sans-serif;
+        font-weight: bold;
+        color: #fff;
+        cursor: pointer;
+    }
+
+    h5 {
+        font-weight: normal;
+    }
+</style>
+
+<script src="~/ckeditor/ckeditor.js"></script>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+    <!-- Author -->
+    <h5>Author Information</h5>
+    <p>
+        For each of the authors please fill out the form below. The email address will only be used for communication with the authors. It
+        will not appear in public Web pages of this preprint.
+    </p>
+    <div id="authors">
+        <table id="author1" class="formtable">
+            <tbody>
+                <tr>
+                    <td colspan="2">
+                        <div>
+                            <b>Author 1</b> (Click here to add yourself)
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="right">
+                        First name:<span class="redstar">*</span>
+                    </td>
+                    <td>
+                        <input type="text" size="50" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="right">
+                        Last name:<span class="redstar">*</span>
+                    </td>
+                    <td>
+                        <input type="text" size="50" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="right">
+                        Email:<span class="redstar">*</span>
+                    </td>
+                    <td>
+                        <input type="email" size="60" />
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table id="author2" class="formtable">
+            <tbody>
+                <tr>
+                    <td colspan="2">
+                        <div>
+                            <b>Author 2</b> (Click here to add yourself)
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="right">
+                        First name:<span class="redstar">*</span>
+                    </td>
+                    <td>
+                        <input type="text" size="50" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="right">
+                        Last name:<span class="redstar">*</span>
+                    </td>
+                    <td>
+                        <input type="text" size="50" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="right">
+                        Email:<span class="redstar">*</span>
+                    </td>
+                    <td>
+                        <input type="email" size="60" />
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table id="author3" class="formtable">
+            <tbody>
+                <tr>
+                    <td colspan="2">
+                        <div>
+                            <b>Author 3</b> (Click here to add yourself)
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="right">
+                        First name:<span class="redstar">*</span>
+                    </td>
+                    <td>
+                        <input type="text" size="50" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="right">
+                        Last name:<span class="redstar">*</span>
+                    </td>
+                    <td>
+                        <input type="text" size="50" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="right">
+                        Email:<span class="redstar">*</span>
+                    </td>
+                    <td>
+                        <input type="email" size="60" />
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div style="text-decoration: underline; color: black; cursor: pointer;">
+        <div style="margin-bottom: 18pt; font-weight: bold;">Click here to add more authors</div>
+    </div>
+    <p>
+        Note: leave first name blank if there is no first name. If you are not sure how to divide a name into the first and last<br />
+        name, read the Help article about names.
+    </p>
+
+    <!-- Title & Abstract -->
+    <h5>Title and Abstract</h5>
+    <p>
+        The title should be entered as plain text and the abstract can contain some simple markup such as <b>bold</b>, <i>italic</i>, <sub>subscript</sub>, <sup>superscript</sup> or lists.
+    </p>
+    <div class="titleabstract">
+        <table class="formtable">
+            <tr>
+                <td class="right">
+                    <label for="Title" class="control-label">
+                        Title:<span class="redstar">*</span>
+                    </label>
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.Title, new { @class = "form-control" })
+                </td>
+            </tr>
+            <tr>
+                <td class="right">
+                    <label for="Abstract" class="control-label">
+                        Abstract:<span class="redstar">*</span>
+                    </label>
+                </td>
+                <td>
+                    @Html.TextAreaFor(model => model.Abstract, new { @class = "form-control" })
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- Research Area -->
+    <h5>Research Areas</h5>
+    <p>
+        Select the main research area to which your preprint belongs. If it fits into more than one area, select also the secondary area.
+    </p>
+    <div id="researcharea">
+        <table class="formtable">
+            <tbody>
+                <tr>
+                    <td class="right">
+                        <label for="PrimaryArea" class="control-label">
+                            Primary area:<span class="redstar">*</span>
+                        </label>
+                    </td>
+                    <td>
+                        @Html.DropDownListFor(model => model.PrimaryAreaID,
+                        new List<SelectListItem>
+                        {
+                            new SelectListItem { Text = "Artificial Intelligence (AI)", Value = "1" },
+                            new SelectListItem { Text = "Machine Learning (ML)", Value = "2" },
+                            new SelectListItem { Text = "Deep Learning", Value = "3" },
+                            new SelectListItem { Text = "Data Science", Value = "4" },
+                            new SelectListItem { Text = "Big Data Analytics", Value = "5" },
+                            new SelectListItem { Text = "Computer Vision", Value = "6" },
+                            new SelectListItem { Text = "Natural Language Processing (NLP)", Value = "7" },
+                            new SelectListItem { Text = "Robotics and Automation", Value = "8" },
+                            new SelectListItem { Text = "Software Engineering", Value = "9" },
+                            new SelectListItem { Text = "Information Systems", Value = "10" }
+                        }, "-- Select primary area --", new { @class = "form-control" })
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        @Html.ValidationMessageFor(model => model.PrimaryAreaID, "", new { @class = "text-danger" })
+                    </td>
+                </tr>
+                <tr>
+                    <td class="right">
+                        <label for="SecondaryArea" class="control-label d-flex justify-content-end">
+                            Secondary area:<span class="redstar">*</span>
+                        </label>
+                    </td>
+                    <td>
+                        @Html.DropDownListFor(model => model.SecondaryAreaID,
+                        new List<SelectListItem> {
+                            new SelectListItem { Text = "Artificial Intelligence (AI)", Value = "1" },
+                            new SelectListItem { Text = "Machine Learning (ML)", Value = "2" },
+                            new SelectListItem { Text = "Deep Learning", Value = "3" },
+                            new SelectListItem { Text = "Data Science", Value = "4" },
+                            new SelectListItem { Text = "Big Data Analytics", Value = "5" },
+                            new SelectListItem { Text = "Computer Vision", Value = "6" },
+                            new SelectListItem { Text = "Natural Language Processing (NLP)", Value = "7" },
+                            new SelectListItem { Text = "Robotics and Automation", Value = "8" },
+                            new SelectListItem { Text = "Software Engineering", Value = "9" },
+                            new SelectListItem { Text = "Information Systems", Value = "10" }
+                        }, "-- Select secondary area (optional) --", new { @class = "form-control" })
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Keywords -->
+    <h5>Keywords</h5>
+    <p>
+        Type a list of keywords (also known as key phrases or key terms), <b>one per line</b> to characterize your preprint. You should specify at
+        least three keywords.
+    </p>
+    <div id="keywords">
+        <table class="formtable">
+            <tbody>
+                <tr>
+                    <td class="right">
+                        <label for="Keywords" class="control-label d-flex justify-content-end">
+                            Keywords:<span class="redstar">*</span>
+                        </label>
+                    </td>
+                    <td>
+                        @Html.TextAreaFor(model => model.Keywords, new { @class = "form-control", cols = "50", rows = 4 })
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        @Html.ValidationMessageFor(model => model.Keywords, "", new { @class = "text-danger" })
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- PDF Document -->
+    <h5>PDF Document</h5>
+    <p>
+        EasyChair publishes preprints as <b>PDF documents</b> created either in LaTeX or in Microsoft Word or similar tools.<br />
+        We will publish your PDF document as it is with a cover page added to it. You will see the cover page when you upload your PDF file.
+    </p>
+
+    <!-- Source Files -->
+    <h5>Source Files</h5>
+    <div>
+        <p style="font-size: 14px;">While your PDF document is sufficient for publishing we would like you if you also to <b>upload the source files</b> for two reasons:</p>
+        <ol style="margin-left: 10pt; line-height: 1.5;">
+            <li>Should PDF be changed or complemented by other formats, we would like to be able to build them from your sources.</li>
+            <li>It can help us data-mine your preprint so that other users and services could find relevant preprints.</li>
+        </ol>
+        <p style="font-size: 14px;">We accept source files in the following formats:</p>
+        <ol style="margin-left: 10pt; line-height: 1.5;">
+            <li>For preprints prepared <b>using LaTeX</b>, please submit the <b>zip archive</b> containing the LaTeX source files.</li>
+            <li>For preprints prepared <b>using Microsoft Word</b>, please submit the source as a <b>docx document</b>.</li>
+        </ol>
+    </div>
+
+    <!-- File Upload Form -->
+    <h5>File Upload Form</h5>
+    <div id="files">
+        <table class="formtable">
+            <tbody>
+                <tr>
+                    <td class="right">
+                        <label for="Document" class="control-label d-flex justify-content-end">
+                            PDF document:<span class="redstar">*</span>
+                        </label>
+                    </td>
+                    <td>
+                        <input type="file" accept=".pdf" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="right">
+                        <label for="Source" class="control-label d-flex justify-content-end">
+                            Source file:
+                        </label>
+                    </td>
+                    <td>
+                        <input type="file" />
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+
+                    </td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Create" class="btn btn-default" />
+        </div>
+    </div>
+</div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section scripts {
+    @*<script src="~/ckeditor/ckeditor.js"></script>*@
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            CKEDITOR.replace('Abstract');
+        });
+    </script>
+}
+
+<script>
+    let authorCount = 3;
+
+    const addAuthorDiv = document.querySelector("div[style*='text-decoration: underline']");
+
+    addAuthorDiv.addEventListener("click", function () {
+        authorCount++;
+
+        const newAuthor = document.createElement("table");
+        newAuthor.id = `author${authorCount}`;
+        newAuthor.className = "formtable";
+        newAuthor.setAttribute("data-author-id", authorCount); // đánh dấu để dễ theo dõi
+
+        newAuthor.innerHTML = `
+            <tbody>
+                <tr>
+                    <td colspan="2">
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <b>Author ${authorCount}</b>
+                            <button type="button" class="delete-btn"
+                                style="background-color: red; color: white; border: none; padding: 2px 8px; border-radius: 4px; cursor: pointer;">
+                                ❌ Xóa
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="right">First name:<span class="redstar">*</span></td>
+                    <td><input type="text" size="50" /></td>
+                </tr>
+                <tr>
+                    <td class="right">Last name:<span class="redstar">*</span></td>
+                    <td><input type="text" size="50" /></td>
+                </tr>
+                <tr>
+                    <td class="right">Email:<span class="redstar">*</span></td>
+                    <td><input type="email" size="60" /></td>
+                </tr>
+            </tbody>
+        `;
+
+        // Gắn sự kiện xóa cho nút
+        newAuthor.querySelector(".delete-btn").addEventListener("click", function () {
+            if (confirm("Bạn có chắc muốn xóa tác giả này?")) {
+                newAuthor.remove();
+                authorCount--;
+                console.log("Author removed. Total authors: " + authorCount);
+            }
+        });
+
+        document.getElementById("authors").appendChild(newAuthor);
+    });
+</script>
+

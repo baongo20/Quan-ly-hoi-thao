@@ -1,0 +1,62 @@
+﻿@model IEnumerable<Do_An.Areas.Admin.Data.HoiThao>
+
+
+<table id="conferencesTable" class="table table-bordered table-striped" style="width: 100%">
+    <thead>
+        <tr>
+            <th>
+                Tên hội thảo
+            </th>
+            <th>
+                Chủ đề
+            </th>
+            <th>
+                Thời gian bắt đầu
+            </th>
+            <th>
+                Thời gian kết thúc
+            </th>
+            <th>
+                Địa điểm
+            </th>
+            <th>
+                Hình thức
+            </th>
+            <th>
+                Mô tả
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null && Model.Any())
+        {
+            foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @item.TenHoiThao
+                    </td>
+                    <td>
+                        @item.ChuDe
+                    </td>
+                    <td>
+                        @item.ThoiGianBatDau
+                    </td>
+                    <td>
+                        @item.ThoiGianKetThuc
+                    </td>
+                    <td>
+                        @item.DiaDiem
+                    </td>
+                    <td>
+                        @item.HinhThucToChuc
+                    </td>
+                    <td>
+                        @item.MoTaKhac
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
